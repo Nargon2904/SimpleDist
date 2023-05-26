@@ -15,31 +15,27 @@ using namespace juce;
 //==============================================================================
 /**
 */
-class DistortionVSTver1AudioProcessorEditor  : public juce::AudioProcessorEditor
+class SimpleDistAudioProcessorEditor  : public juce::AudioProcessorEditor, 
+                                        public Slider::Listener
 {
 public:
-    DistortionVSTver1AudioProcessorEditor (DistortionVSTver1AudioProcessor&);
-    ~DistortionVSTver1AudioProcessorEditor() override;
+    SimpleDistAudioProcessorEditor (SimpleDistAudioProcessor&);
+    ~SimpleDistAudioProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
+    void sliderValueChanged(Slider* slider) override;
 
 private:
-
-    ScopedPointer<Slider> driveKnob;
-    ScopedPointer<Slider> rangeKnob;
-    ScopedPointer<Slider> blendKnob;
-    ScopedPointer<Slider> volumeKnob;
-
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> driveAttachment;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rangeAttachment;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> blendAttachment;
-    ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> volumeAttachment;
-
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    DistortionVSTver1AudioProcessor& audioProcessor;
+    SimpleDistAudioProcessor& audioProcessor;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistortionVSTver1AudioProcessorEditor)
+    Slider DriveSlider;
+    Slider RangeSlider;
+    Slider BlendSlider;
+    Slider gainVolumeSlider;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleDistAudioProcessorEditor)
 };

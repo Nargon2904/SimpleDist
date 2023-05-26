@@ -14,15 +14,15 @@ using namespace juce;
 //==============================================================================
 /**
 */
-class DistortionVSTver1AudioProcessor  : public juce::AudioProcessor
+class SimpleDistAudioProcessor  : public juce::AudioProcessor
                             #if JucePlugin_Enable_ARA
                              , public juce::AudioProcessorARAExtension
                             #endif
 {
 public:
     //==============================================================================
-    DistortionVSTver1AudioProcessor();
-    ~DistortionVSTver1AudioProcessor() override;
+    SimpleDistAudioProcessor();
+    ~SimpleDistAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -57,13 +57,9 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    AudioProcessorValueTreeState& getState();
+    double rawVolume;
 
 private:
-
-    ScopedPointer<AudioProcessorValueTreeState> state;
-
-
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (DistortionVSTver1AudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleDistAudioProcessor)
 };
