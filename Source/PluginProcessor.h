@@ -58,6 +58,9 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     double rawVolume;
+    double rawDrive;
+    double rawRange;
+    double rawBlend;
 
 private:
     //==============================================================================

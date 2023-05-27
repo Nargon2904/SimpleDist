@@ -16,34 +16,38 @@ SimpleDistAudioProcessorEditor::SimpleDistAudioProcessorEditor (SimpleDistAudioP
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (500, 400);
+    setSize (500, 200);
 
 
+    DriveSlider.setSliderStyle(Slider::Rotary);
     //DriveSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    //DriveSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 100, 25);
-    //DriveSlider.setRange(-48.0, 0.0);
-    //DriveSlider.setValue(-1.0);
-    //DriveSlider.addListener(this);
-    //addAndMakeVisible(gainVolumeSlider);
-    //
-    //RangeSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    //DriveSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 100, 25);
-    //DriveSlider.setRange(-48.0, 0.0);
-    //DriveSlider.setValue(0.0);
-    //DriveSlider.addListener(this);
-    //addAndMakeVisible(gainVolumeSlider);
-    //
-    //BlendSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    //gainVolumeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 100, 25);
-    //gainVolumeSlider.setRange(-48.0, 0.0);
-    //gainVolumeSlider.setValue(-1.0);
-    //gainVolumeSlider.addListener(this);
-    //addAndMakeVisible(gainVolumeSlider);
+    DriveSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
+    DriveSlider.setRange(0.0, 1.0);
+    DriveSlider.setValue(0.0);
+    DriveSlider.addListener(this);
+    addAndMakeVisible(DriveSlider);
 
-    gainVolumeSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
-    gainVolumeSlider.setTextBoxStyle(Slider::TextBoxBelow, true, 70, 25);
-    gainVolumeSlider.setRange(-48.0, 0.0);
-    gainVolumeSlider.setValue(-1.0);
+    
+    RangeSlider.setSliderStyle(Slider::Rotary);
+    RangeSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
+    RangeSlider.setRange(0.0, 30.0);
+    RangeSlider.setValue(0.0);
+    RangeSlider.addListener(this);
+    addAndMakeVisible(RangeSlider);
+
+
+    BlendSlider.setSliderStyle(Slider::Rotary);
+    BlendSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
+    BlendSlider.setRange(0.0, 1.0);
+    BlendSlider.setValue(0.0);
+    BlendSlider.addListener(this);
+    addAndMakeVisible(BlendSlider);
+
+
+    gainVolumeSlider.setSliderStyle(Slider::Rotary);
+    gainVolumeSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
+    gainVolumeSlider.setRange(0.0, 2.0);
+    gainVolumeSlider.setValue(1.0);
     gainVolumeSlider.addListener(this);
     addAndMakeVisible(gainVolumeSlider);
 }
@@ -63,6 +67,12 @@ void SimpleDistAudioProcessorEditor::paint (juce::Graphics& g)
     //g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
 
 
+    g.drawText("Drive", ((getWidth() / 5) * 1) - (100 / 2), (getHeight() / 2) + 5, 100, 100, Justification::centred, false);
+    g.drawText("Range", ((getWidth() / 5) * 2) - (100 / 2), (getHeight() / 2) + 5, 100, 100, Justification::centred, false);
+    g.drawText("Blend", ((getWidth() / 5) * 3) - (100 / 2), (getHeight() / 2) + 5, 100, 100, Justification::centred, false);
+    g.drawText("Volume", ((getWidth() / 5) * 4) - (100 / 2), (getHeight() / 2) + 5, 100, 100, Justification::centred, false);
+
+
 }
 
 void SimpleDistAudioProcessorEditor::resized()
@@ -71,13 +81,27 @@ void SimpleDistAudioProcessorEditor::resized()
     // subcomponents in your editor..
 
     //gainVolumeSlider.setBounds(getLocalBounds());
-    gainVolumeSlider.setBounds(((getWidth() / 5) * 1) - (100 / 2), (getHeight() / 2) - 100, 100, 200);
+
+    DriveSlider.setBounds(((getWidth() / 5) * 1) - (100 / 2), (getHeight() / 2) - (100 / 2), 100, 100);
+    RangeSlider.setBounds(((getWidth() / 5) * 2) - (100 / 2), (getHeight() / 2) - (100 / 2), 100, 100);
+    BlendSlider.setBounds(((getWidth() / 5) * 3) - (100 / 2), (getHeight() / 2) - (100 / 2), 100, 100);
+    gainVolumeSlider.setBounds(((getWidth() / 5) * 4) - (100 / 2), (getHeight() / 2) - (100 / 2), 100, 100);
 
 }
 
 
 void SimpleDistAudioProcessorEditor::sliderValueChanged(Slider* slider) {
     if (slider == &gainVolumeSlider) {
-        audioProcessor.rawVolume = pow(10, gainVolumeSlider.getValue() / 20);
+        //audioProcessor.rawVolume = pow(10, gainVolumeSlider.getValue() / 20);
+        audioProcessor.rawVolume = gainVolumeSlider.getValue();
+    }
+    if (slider == &DriveSlider) {
+        audioProcessor.rawDrive = DriveSlider.getValue();
+    }
+    if (slider == &RangeSlider) {
+        audioProcessor.rawRange = RangeSlider.getValue();
+    }
+    if (slider == &BlendSlider) {
+        audioProcessor.rawBlend = BlendSlider.getValue();
     }
 }
