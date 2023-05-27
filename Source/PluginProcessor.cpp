@@ -160,9 +160,9 @@ void SimpleDistAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
             float cleanSig = *channelData;
 
             //channelData[sample] = buffer.getSample(channel, sample) * rawVolume;
-            *channelData *= rawVolume * rawDrive;
+            *channelData *= rawDrive * rawRange;
 
-            //*channelData = (((((2.f / float_Pi) * atan(*channelData)) * rawBlend) + (cleanSig * (1.f - rawBlend))) / 2.f) * rawVolume;
+            *channelData = (((((2.f / float_Pi) * atan(*channelData)) * rawBlend) + (cleanSig * (1.f - rawBlend))) / 2.f) * rawVolume;
 
 
             channelData++;
