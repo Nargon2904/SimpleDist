@@ -23,15 +23,15 @@ SimpleDistAudioProcessorEditor::SimpleDistAudioProcessorEditor (SimpleDistAudioP
     //DriveSlider.setSliderStyle(Slider::SliderStyle::LinearVertical);
     DriveSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
     DriveSlider.setRange(0.0, 1.0);
-    DriveSlider.setValue(0.0);
+    DriveSlider.setValue(0.5);
     DriveSlider.addListener(this);
     addAndMakeVisible(DriveSlider);
 
     
     RangeSlider.setSliderStyle(Slider::Rotary);
     RangeSlider.setTextBoxStyle(Slider::NoTextBox, false, 100, 100);
-    RangeSlider.setRange(0.0, 30.0);
-    RangeSlider.setValue(0.0);
+    RangeSlider.setRange(0.0, 300.0);
+    RangeSlider.setValue(20.0);
     RangeSlider.addListener(this);
     addAndMakeVisible(RangeSlider);
 
